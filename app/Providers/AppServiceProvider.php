@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
+        /** @var \Illuminate\Foundation\Application $app */
+        $app = $this->app;
+
+        Model::unguard();
+        Model::preventLazyLoading(!$app->isProduction());
+        
     }
 }
