@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,11 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->words(3, true);
+
         return [
-            //
+            'name' => $name,
+            'slug' => Str::slug($name),
         ];
     }
 }
