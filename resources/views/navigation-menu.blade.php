@@ -10,11 +10,11 @@
             </div>
 
             <div>
-                  <form action="" method="GET" class="flex items-center border rounded-lg px-4 py-2 w-72">
+                  <form action="" method="GET" class="flex items-center justify-center border rounded-full px-3 py-1 w-96 bg-gray-200">
                         <input type="text" name="query" placeholder="Search..."
-                              class="border-0 flex-grow px-2 py-1 text-gray-700 outline-none focus:ring-0 focus:border-transparent">
-                        <button type="submit" class="text-gray-500">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                              class="border-0 flex-grow px-2 py-1 text-gray-800 outline-none focus:ring-0 focus:border-transparent bg-gray-200">
+                        <button type="submit" class="text-gray-500 mb-1">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M21 21l-4.35-4.35M16.65 12A6.65 6.65 0 1 0 12 18.65 6.65 6.65 0 0 0 16.65 12z" />
