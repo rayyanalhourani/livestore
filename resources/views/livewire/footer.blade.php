@@ -1,22 +1,32 @@
-<div class="mx-40">
-      <div class="grid grid-cols-5">
-            <div class="flex items-center justify-center" >
-                  <h1>Exclusive</h1>
+<div class="bg-black">
+      <div class="grid grid-cols-4 text-gray-300 py-12 px-8 items-start">
+            <div class="flex flex-col items-center justify-center gap-4">
+                  <h1 class="font-bold text-2xl">Exclusive</h1>
+                  <h2 class="font-medium text-xl">Subscribe</h2>
+                  <h3>Get 10% off your first order</h3>
             </div>
-            <div class="flex items-center justify-center">
-                  <h1>Support</h1>
+            <div class="flex flex-col items-center justify-center gap-4">
+                  <h2 class="text-xl font-medium">Support</h2>
+                  <h3 class="w-40">111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.</h3>
+                  <h3>exclusive@gmail.com</h3>
+                  <h3>+88015-88888-9999</h3>
             </div>
-            <div class="flex items-center justify-center">
-                  <h1>Account</h1>
+            <div class="flex flex-col items-center justify-center gap-4">
+                  <h2 class="text-xl font-medium">Account</h2>
+                  <h3>Login / Register</h3>
+                  <h3>Cart</h3>
+                  <h3>Wishlist</h3>
+                  <h3>Shop</h3>
             </div>
-            <div class="flex items-center justify-center">
-                  <h1>Quick Link</h1>
-            </div>
-            <div class="flex items-center justify-center">
-                  <h1>Download App</h1>
+            <div class="flex flex-col items-center justify-center gap-4">
+                  <h2 class="text-xl font-medium">Quick Link</h2>
+                  <h3>Privacy Policy</h3>
+                  <h3>Terms Of Use</h3>
+                  <h3>FAQ</h3>
+                  <h3>Contact</h3>
             </div>
       </div>
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center text-gray-700">
             <p>Copyright Rimel 2022. All right reserved</p>
       </div>
 </div>
