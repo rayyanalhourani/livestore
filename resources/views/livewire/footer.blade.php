@@ -1,4 +1,4 @@
-<div class="mx-auto">
+<div class="mx-40">
       <div class="grid grid-cols-5">
             <div class="flex items-center justify-center" >
                   <h1>Exclusive</h1>
@@ -16,7 +16,7 @@
                   <h1>Download App</h1>
             </div>
       </div>
-      <div>
-            Copyright Rimel 2022. All right reserved
+      <div class="flex items-center justify-center">
+            <p>Copyright Rimel 2022. All right reserved</p>
       </div>
 </div>
