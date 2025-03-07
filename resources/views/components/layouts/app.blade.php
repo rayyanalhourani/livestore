@@ -17,9 +17,9 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased flex flex-col min-h-screen">
+    <body class="font-sans antialiased flex flex-col">
     
-        <div class="flex-1 bg-gray-100">
+        <div class="flex-1 bg-gray-100  min-h-screen">
             @livewire('navigation-menu')
     
             <!-- Page Content -->
