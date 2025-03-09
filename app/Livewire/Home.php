@@ -2,12 +2,22 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Home extends Component
 {
+
+    #[Computed]
+    public function categories(){
+        return Category::limit(10)->get();
+    }
+
+    #[Title('Home')] 
     public function render()
     {
-        return view('livewire.home',['header' => 'Home']);
+        return view('livewire.home',['title' => 'Home']);
     }
 }

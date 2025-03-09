@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,11 +19,11 @@
     </head>
     <body class="font-sans antialiased flex flex-col">
     
-        <div class="flex-1 bg-gray-100  min-h-screen">
+        <div class="flex-1 min-h-screen">
             @livewire('navigation-menu')
     
             <!-- Page Content -->
-            <main>
+            <main class="ml-32">
                 {{ $slot }}
             </main>
         </div>

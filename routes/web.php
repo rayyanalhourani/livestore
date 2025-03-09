@@ -1,13 +1,39 @@
 <?php
 
 use App\Livewire\Home;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::get('/',Home::class)->name('home');
+Route::get('/', Home::class)->name('home');
+
+Route::get('/categories', function () {
+    return "categories page";
+})->name('categories');
+
+Route::get('/new-arrival', function () {
+    return "new-arrival page";
+})->name('new-arrival');
+
+Route::get('/about-us', function () {
+    return "about-us page";
+})->name('about-us');
+
+Route::get('/cart', function () {
+    return "cart page";
+})->name('cart');
+
+Route::get('/profile', function () {
+    return "profile page";
+})->name('profile');
+
+Route::get('/wishlist', function () {
+    return "wishlist page";
+})->name('wishlist');
+
+Route::get('/categories/{category:slug}', function (Category $category) {
+    return $category;
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -18,3 +44,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+// <x-nav-link href="{{ route('') }}" :active="request()->routeIs('home')">
+// New arrival
+// </x-nav-link>
+// <x-nav-link href="{{ route('') }}" :active="request()->routeIs('home')">
+// 
+// </x-nav-link>
