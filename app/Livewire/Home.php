@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Category;
+use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,6 +14,11 @@ class Home extends Component
     #[Computed]
     public function categories(){
         return Category::limit(10)->get();
+    }
+
+    #[Computed]
+    public function products(){
+        return Product::inRandomOrder()->limit(10)->get();
     }
 
     #[Title('Home')] 

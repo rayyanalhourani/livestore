@@ -12,4 +12,21 @@
                   <img src="http://picsum.photos/seed/{{ rand(0, 100000) }}/900/350" alt="">
             </div>
       </div>
+
+      {{-- Products --}}
+      <div class="mt-28">
+            {{-- Sales cards --}}
+            <div>
+                  <div class="flex items-center gap-3">
+                        <div class="w-5 h-10 rounded-md bg-red-500"></div>
+                        <h1 class="text-red-500 font-semibold">Today’s</h1>
+                  </div>
+                  <h1 class="my-6 text-4xl">Flash Sales</h1>
+                  <div class="flex gap-5 flex-wrap">
+                        @foreach ($this->products as $product)
+                            @livewire('product-card',['product'=>$product])
+                        @endforeach
+                  </div>
+            </div>
+      </div>
 </div>
