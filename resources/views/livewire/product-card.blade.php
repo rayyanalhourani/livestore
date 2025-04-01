@@ -3,17 +3,18 @@
             <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded">
                   -40%
             </div>
-            <div class="absolute top-1 right-1 rounded-full bg-white p-1">
-                  <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                        stroke="#000000" stroke-width="0.00024000000000000003">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
+            <div class="absolute top-1 right-1 rounded-full p-1">
+                  @if (true)
+                        <span class="material-symbols-outlined">
+                              favorite
+                        </span>
+                  @else
+                        <svg xmlns="http://www.w3.org/2000/svg" height="28px" width="28px" viewBox="0 -960 960 960"
+                              fill="#ef4444">
                               <path
-                                    d="M20.5,4.609A5.811,5.811,0,0,0,16,2.5a5.75,5.75,0,0,0-4,1.455A5.75,5.75,0,0,0,8,2.5,5.811,5.811,0,0,0,3.5,4.609c-.953,1.156-1.95,3.249-1.289,6.66,1.055,5.447,8.966,9.917,9.3,10.1a1,1,0,0,0,.974,0c.336-.187,8.247-4.657,9.3-10.1C22.45,7.858,21.453,5.765,20.5,4.609Zm-.674,6.28C19.08,14.74,13.658,18.322,12,19.34c-2.336-1.41-7.142-4.95-7.821-8.451-.513-2.646.189-4.183.869-5.007A3.819,3.819,0,0,1,8,4.5a3.493,3.493,0,0,1,3.115,1.469,1.005,1.005,0,0,0,1.76.011A3.489,3.489,0,0,1,16,4.5a3.819,3.819,0,0,1,2.959,1.382C19.637,6.706,20.339,8.243,19.826,10.889Z">
-                              </path>
-                        </g>
-                  </svg>
+                                    d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
+                        </svg>
+                  @endif
             </div>
       </div>
       <div class="mt-4 font-medium">
@@ -23,10 +24,37 @@
                   <h1 class="line-through text-gray-500">350$</h1>
             </div>
 
-            <div>{{ $rating = rand(1, 5) }}
-                  @foreach (range(1, 5) as $i)
-                        <span class="fa fa-star checked"></span>
-                  @endforeach
+            <?php
+            $rating = round(rand(0.0 * 10, 5.0 * 10) / 10, 1);
+            $fullStars = floor($rating);
+            $decimalPart = $rating - $fullStars;
+            $showHalfStar = $decimalPart > 0.5;
+            ?>
+
+            <div class="flex">
+                  @for ($i = 1; $i <= $fullStars; $i++)
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"
+                              fill="#FFD700">
+                              <path
+                                    d="m243-144 63-266L96-589l276-24 108-251 108 252 276 23-210 179 63 266-237-141-237 141Z" />
+                        </svg>
+                  @endfor
+
+                  @if ($showHalfStar)
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"
+                              fill="#FFD700">
+                              <path
+                                    d="m609-293-34-144 111-95-147-13-59-137v313l129 76ZM243-144l63-266L96-589l276-24 108-251 108 252 276 23-210 179 63 266-237-141-237 141Z" />
+                        </svg>
+                  @endif
+
+                  @for ($i = $fullStars + ($showHalfStar ? 1 : 0); $i < 5; $i++)
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"
+                              fill="#FFD700">
+                              <path
+                                    d="m352-293 128-76 129 76-34-144 111-95-147-13-59-137-59 137-147 13 112 95-34 144ZM243-144l63-266L96-589l276-24 108-251 108 252 276 23-210 179 63 266-237-141-237 141Zm237-333Z" />
+                        </svg>
+                  @endfor
             </div>
 
       </div>
