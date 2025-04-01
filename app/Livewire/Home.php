@@ -18,7 +18,12 @@ class Home extends Component
 
     #[Computed]
     public function products(){
-        return Product::inRandomOrder()->limit(10)->get();
+        return Product::inRandomOrder()->limit(10)->withAvg("reviews",column: "rating")->get();
+    }
+
+    #[Computed]
+    public function discountProducts(){
+        return Product::inRandomOrder()->limit(10)->withAvg("reviews","rating")->where( "discount",">",0)->get();
     }
 
     #[Title('Home')] 

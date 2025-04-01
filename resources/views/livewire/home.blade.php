@@ -23,7 +23,7 @@
                   </div>
                   <h1 class="my-6 text-4xl">Flash Sales</h1>
                   <div class="flex gap-5 flex-wrap">
-                        @foreach ($this->products as $product)
+                        @foreach ($this->discountProducts as $product)
                             @livewire('product-card',['product'=>$product])
                         @endforeach
                   </div>

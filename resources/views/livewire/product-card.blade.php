@@ -1,8 +1,10 @@
 <div class="w-[270px] h-[350px]">
-      <div class="h-[250px] w-full bg-gray-200 relative">
+      <div class="h-[250px] w-full bg-gray-200 relative flex items-center justify-center">
+            @if ($product->discount>0)
             <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded">
-                  -40%
-            </div>
+                  {{ $product->discount }}%
+            </div>    
+            @endif
             <div class="absolute top-1 right-1 rounded-full p-1">
                   @if (true)
                         <span class="material-symbols-outlined">
@@ -16,20 +18,25 @@
                         </svg>
                   @endif
             </div>
+            <div>
+                  <img src="{{asset('storage/images/keyboard.png');}}" class="max-w-60" alt="">
+            </div>
       </div>
       <div class="mt-4 font-medium">
-            <h1>{{ $product->name }}</h1>
-            <div class="flex gap-3">
-                  <h1 class="font-medium text-red-500">{{ $product->price }}</h1>
-                  <h1 class="line-through text-gray-500">350$</h1>
-            </div>
-
             <?php
-            $rating = round(rand(0.0 * 10, 5.0 * 10) / 10, 1);
+            $price=$product->price;
+            $discount=$product->discount;
+            $rating = $product->reviews_avg_rating;
             $fullStars = floor($rating);
             $decimalPart = $rating - $fullStars;
-            $showHalfStar = $decimalPart > 0.5;
+            $showHalfStar = $decimalPart >= 0.5;
             ?>
+
+            <h1>{{ $product->name }}</h1>
+            <div class="flex gap-3">
+                  <h1 class="font-medium text-red-500">{{ number_format($price - (($price * $discount) / 100), 2) }}$</h1>
+                  <h1 class="line-through text-gray-500">{{ $price }}$</h1>
+            </div>           
 
             <div class="flex">
                   @for ($i = 1; $i <= $fullStars; $i++)
@@ -56,6 +63,5 @@
                         </svg>
                   @endfor
             </div>
-
       </div>
 </div>
