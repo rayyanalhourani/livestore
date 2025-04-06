@@ -5,8 +5,13 @@
                   {{ $product->discount }}%
             </div>    
             @endif
-            <div class="absolute top-1 right-1 rounded-full p-1">
-                  @if (true)
+            <div class="absolute top-1 right-1 rounded-full p-1 hover:cursor-pointer "
+            x-data="{ loading: false }" wire:click="toggleFavorite" 
+            @click="loading = true" 
+            @wire:loading.remove @wire:target="toggleFavorite"
+            wire:loading.attr="disabled">
+
+                  @if (!$isFavorited)
                         <span class="material-symbols-outlined">
                               favorite
                         </span>
@@ -26,7 +31,7 @@
             <?php
             $price=$product->price;
             $discount=$product->discount;
-            $rating = $product->reviews_avg_rating;
+            $rating = $product->reviews_avg_rating ?? 0;
             $fullStars = floor($rating);
             $decimalPart = $rating - $fullStars;
             $showHalfStar = $decimalPart >= 0.5;

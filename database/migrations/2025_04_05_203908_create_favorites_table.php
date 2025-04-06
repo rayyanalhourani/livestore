@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('favorites');
     }
 };
