@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use function Illuminate\Log\log;
+
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class ProductCard extends Component
@@ -13,21 +16,23 @@ class ProductCard extends Component
     public function mount($product)
     {
         $this->product = $product;
-        $this->isFavorited = Auth::check() && Auth::user()->favorites->where('product_id', $product->id)->first();
+        $this->isFavorited = Auth::check() && Auth::user()->favoriteProducts()->where('product_id', $product->id)->first();
     }
 
     public function toggleFavorite()
     {
         if (!Auth::check()) return;
-
+    
         $user = Auth::user();
-        $favorite = $user->favorites->where('product_id', $this->product->id)->first();
-
-        if ($favorite) {
-            $favorite->delete();
+    
+        // Check if already favorited
+        $isFavorited = $user->favoriteProducts()->where('product_id', $this->product->id)->exists();
+    
+        if ($isFavorited) {
+            $user->favoriteProducts()->detach($this->product->id);
             $this->isFavorited = false;
         } else {
-            $user->favorites->attach(['product_id' => $this->product->id]);
+            $user->favoriteProducts()->attach($this->product->id);
             $this->isFavorited = true;
         }
     }
