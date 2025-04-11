@@ -11,7 +11,7 @@
             @wire:loading.remove @wire:target="toggleFavorite"
             wire:loading.attr="disabled">
 
-                  @if (!$isFavorited)
+                  @if (!$isFavorite)
                         <span class="material-symbols-outlined">
                               favorite
                         </span>
