@@ -3,7 +3,7 @@
       <div class="flex">
             <div class="border-r-2 flex flex-col gap-4 w-72 pt-12">
                   @foreach ($this->categories as $category)
-                        <a href="/categories/{{ $category->slug }}" class="font-Poppins">
+                        <a href="/categories/{{ $category->slug }}" class="font-Poppins hover:underline" wire:navigate>
                               {{ $category->name }}
                         </a>
                   @endforeach

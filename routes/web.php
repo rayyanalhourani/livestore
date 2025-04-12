@@ -2,6 +2,7 @@
 
 use App\Livewire\Home;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,7 +34,11 @@ Route::get('/wishlist', function () {
 
 Route::get('/categories/{category:slug}', function (Category $category) {
     return $category;
-});
+})->name("category");
+
+Route::get('/product/{product}', function (Product $product) {
+    return $product;
+})->name("product.show");
 
 Route::middleware([
     'auth:sanctum',
