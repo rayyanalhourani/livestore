@@ -1,8 +1,8 @@
 <?php
 
 use App\Livewire\Home;
+use App\Livewire\Product;
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,9 +36,7 @@ Route::get('/categories/{category:slug}', function (Category $category) {
     return $category;
 })->name("category");
 
-Route::get('/product/{product}', function (Product $product) {
-    return $product;
-})->name("product.show");
+Route::get('/product/{product}',Product::class)->name("product.show");
 
 Route::middleware([
     'auth:sanctum',
@@ -49,11 +47,3 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-
-
-// <x-nav-link href="{{ route('') }}" :active="request()->routeIs('home')">
-// New arrival
-// </x-nav-link>
-// <x-nav-link href="{{ route('') }}" :active="request()->routeIs('home')">
-// 
-// </x-nav-link>
