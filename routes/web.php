@@ -38,6 +38,10 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 
 Route::get('/product/{product}',Product::class)->name("product.show");
 
+Route::get('/products', function () {
+    return "products page";
+})->name('products');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

@@ -1,7 +1,7 @@
 <div>
 
       <div>
-        {{ \Diglactic\Breadcrumbs\Breadcrumbs::render('home') }}
+        {{ \Diglactic\Breadcrumbs\Breadcrumbs::render('product', $product) }}
       </div>
 
 </div>
