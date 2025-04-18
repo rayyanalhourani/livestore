@@ -11,7 +11,10 @@ class Product extends Component
 
     public function mount($product)
     {
-        $this->product = ProductModel::find($product)->withAvg("reviews", "rating")->get();
+        $this->product = ProductModel::withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->where('id', $product)
+            ->first();
     }
 
     public function render()
