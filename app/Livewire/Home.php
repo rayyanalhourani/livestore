@@ -23,8 +23,7 @@ class Home extends Component
 
     #[Computed]
     public function discountProducts(){
-        //return Product::inRandomOrder()->limit(10)->withAvg("reviews","rating")->where( "discount",">",0)->get();
-        return Product::where( "discount",">",0)->limit(10)->withAvg("reviews","rating")->get();
+            return Product::where( "discount",">",0)->limit(10)->withAvg("reviews","rating")->get();
 
     }
 
