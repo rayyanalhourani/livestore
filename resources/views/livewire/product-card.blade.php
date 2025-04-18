@@ -30,7 +30,7 @@
               <h1 class="font-medium text-red-500">{{ number_format($product->price - (($product->price * $product->discount) / 100), 2) }}$</h1>
               <h1 class="line-through text-gray-500">{{ $product->price }}$</h1>
           </div> 
-          <x-stars-with-review :rating="$product->reviews_avg_rating"/>          
+          <x-stars-with-review :rating="$product->reviews_avg_rating" :numberOfReviews="$product->reviews_count"/>          
   
       </div>
   </div>

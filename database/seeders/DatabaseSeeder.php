@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         $categories = Category::all();
 
         foreach ($products as $product) {
-            Review::factory(10)->create([
+            Review::factory(rand(10,20))->create([
                 "product_id" => $product->id,
             ]);
             Image::factory(3)->create([
