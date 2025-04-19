@@ -1,18 +1,7 @@
 <div class="w-[270px] h-[350px] relative group">
-      <div class="absolute top-1 right-1 rounded-full p-1 z-10 hover:cursor-pointer" x-data="{ loading: false }"
-            wire:click="toggleFavorite" @click.stop="loading = true" @wire:loading.remove @wire:target="toggleFavorite"
-            wire:loading.attr="disabled">
-            @if (!$isFavorite)
-                  <span class="material-symbols-outlined">favorite</span>
-            @else
-                  <svg xmlns="http://www.w3.org/2000/svg" height="28px" width="28px" viewBox="0 -960 960 960"
-                        fill="#ef4444">
-                        <path
-                              d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
-                  </svg>
-            @endif
+      <div class="absolute top-1 right-1 rounded-full p-1 z-10 hover:cursor-pointer">
+            <livewire:favorite-button :key="$product->id" :productId="$product->id">
       </div>
-
       <a class="h-[250px] w-full bg-gray-200 relative flex items-center justify-center block"
             href="{{ route('product.show', $product->id) }}" wire:navigate>
             @if ($product->discount > 0)
