@@ -1,5 +1,5 @@
 <div class="w-[270px] h-[350px] relative group">
-      <div class="absolute top-1 right-1 rounded-full p-1 z-10 hover:cursor-pointer">
+      <div class="absolute top-1 right-1 rounded-full p-1 z-10 hover:cursor-pointer bg-white">
             <livewire:favorite-button :key="$product->id" :productId="$product->id">
       </div>
       <a class="h-[250px] w-full bg-gray-200 relative flex items-center justify-center block"
