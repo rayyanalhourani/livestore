@@ -19,6 +19,7 @@ class Product extends Component
     {
         $this->product = ProductModel::withAvg('reviews', 'rating')
             ->withCount('reviews')
+            ->with(["reviews.user"])
             ->where('id', $product)
             ->first();
         $this->numberOfReviews=$this->product->reviews_count;

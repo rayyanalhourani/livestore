@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\CategoryProducts;
 use App\Livewire\Home;
 use App\Livewire\Product;
 use App\Models\Category;
@@ -32,9 +33,7 @@ Route::get('/wishlist', function () {
     return "wishlist page";
 })->name('wishlist');
 
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return $category;
-})->name("category");
+Route::get('/categories/{category:slug}',CategoryProducts::class)->name("category");
 
 Route::get('/product/{product}',Product::class)->name("product.show");
 

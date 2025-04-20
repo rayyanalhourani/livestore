@@ -16,7 +16,8 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 inter: ['Inter','sans-serif'],
-                Poppins: ['Poppins','sans-serif']
+                Poppins: ['Poppins','sans-serif'],
+                Satoshi: ['Satoshi','sans-serif']
             },
         },
     },

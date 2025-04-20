@@ -24,7 +24,7 @@
             @livewire('navigation-menu')
     
             <!-- Page Content -->
-            <main class="ml-32">
+            <main class="mx-32">
                 {{ $slot }}
             </main>
         </div>
