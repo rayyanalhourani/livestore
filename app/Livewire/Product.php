@@ -21,7 +21,7 @@ class Product extends Component
             ->withCount('reviews')
             ->with(["reviews.user"])
             ->where('id', $product)
-            ->first();
+            ->firstOrFail();
         $this->numberOfReviews=$this->product->reviews_count;
         $this->rating=$this->product->reviews_avg_rating;
     }

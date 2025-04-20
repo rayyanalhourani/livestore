@@ -1,17 +1,15 @@
 <?php
 
+use App\Livewire\Categories;
 use App\Livewire\CategoryProducts;
 use App\Livewire\Home;
 use App\Livewire\Product;
-use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', Home::class)->name('home');
 
-Route::get('/categories', function () {
-    return "categories page";
-})->name('categories');
+Route::get('/categories',Categories::class)->name('categories');
 
 Route::get('/new-arrival', function () {
     return "new-arrival page";

@@ -13,15 +13,20 @@
             </div>
       </div>
 
-      {{-- Products --}}
       <div class="mt-28">
-            {{-- Sales cards --}}
             <div>
-                  <x-section-header title="Today’s" />
-                  <h1 class="my-6 text-4xl">Flash Sales</h1>
+                  <x-section-header title="Today’s" header="Flash Sales"/>
                   <div class="flex gap-5 flex-wrap">
                         @foreach ($this->discountProducts as $product)
                         <livewire:product-card :key="$product->id" :product="$product">
+                        @endforeach
+                  </div>
+            </div>
+            <div>
+                  <x-section-header title="Categories" header="Browse By Category"/>
+                  <div class="flex gap-5 flex-wrap">
+                        @foreach ($this->categories as $category)
+                        <x-category-card :category="$category" />
                         @endforeach
                   </div>
             </div>

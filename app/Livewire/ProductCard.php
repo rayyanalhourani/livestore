@@ -2,14 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Models\Product;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 
 class ProductCard extends Component
 {
     public $product;
  
-    public function mount($product)
+    public function mount(Product $product)
     {
         $this->product = $product;
     }
