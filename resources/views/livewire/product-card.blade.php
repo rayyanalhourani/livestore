@@ -1,7 +1,14 @@
 <div class="w-[270px] h-[350px] relative group">
-      <div class="absolute top-1 right-1 rounded-full p-1 z-10 hover:cursor-pointer bg-white">
-            <livewire:favorite-button :key="$product->id" :productId="$product->id">
-      </div>
+      <button class="absolute top-1 right-1 rounded-full p-1 z-10 bg-white">
+            @if ($this->wishlist)
+                  <span class="material-symbols-outlined">
+                        delete
+                  </span>
+            @else
+                  <livewire:favorite-button :key="$product->id" :productId="$product->id">
+            @endif
+
+      </button>
       <a class="h-[250px] w-full bg-gray-200 relative flex items-center justify-center block"
             href="{{ route('product.show', $product->id) }}" wire:navigate>
             @if ($product->discount > 0)
@@ -11,7 +18,16 @@
             @endif
             <img src="{{ asset('storage/images/keyboard.png') }}" class="max-w-60" alt="">
       </a>
-
+      @if ($this->wishlist)
+            <button wire:click="AddToCart"
+                  class="h-10 w-full bg-black text-white text-sm absolute bottom-24 flex justify-center items-center 
+                  gap-2 hover:bg-gray-800 transition duration-300">
+                  <span class="material-symbols-outlined">
+                        shopping_cart
+                  </span>
+                  <span>Add to Cart</span>
+            </button>
+      @endif
       <div class="mt-4 font-medium">
             <h1>{{ $product->name }}</h1>
             <x-price :price="$product->price" :discount="$product->discount" />

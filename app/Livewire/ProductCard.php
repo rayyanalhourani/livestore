@@ -8,10 +8,12 @@ use Livewire\Component;
 class ProductCard extends Component
 {
     public $product;
+    public $wishlist;
  
-    public function mount(Product $product)
+    public function mount(Product $product,bool $wishlist=false)
     {
         $this->product = $product;
+        $this->wishlist=$wishlist;
     }
 
     public function render()

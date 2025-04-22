@@ -1,9 +1,11 @@
 <?php
 
+use App\Livewire\Cart;
 use App\Livewire\Categories;
 use App\Livewire\CategoryProducts;
 use App\Livewire\Home;
 use App\Livewire\Product;
+use App\Livewire\Wishlist;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,17 +21,13 @@ Route::get('/about-us', function () {
     return "about-us page";
 })->name('about-us');
 
-Route::get('/cart', function () {
-    return "cart page";
-})->name('cart');
+Route::get('/cart',Cart::class)->name('cart');
 
 Route::get('/profile', function () {
     return "profile page";
 })->name('profile');
 
-Route::get('/wishlist', function () {
-    return "wishlist page";
-})->name('wishlist');
+Route::get('/wishlist',Wishlist::class)->name('wishlist');
 
 Route::get('/categories/{category:slug}',CategoryProducts::class)->name("category");
 
