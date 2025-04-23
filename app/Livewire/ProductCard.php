@@ -12,6 +12,8 @@ class ProductCard extends Component
  
     public function mount(Product $product,bool $wishlist=false)
     {
+        $product->loadAvg('reviews', 'rating')
+            ->loadCount('reviews');
         $this->product = $product;
         $this->wishlist=$wishlist;
     }
