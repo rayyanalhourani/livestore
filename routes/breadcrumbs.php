@@ -21,3 +21,13 @@ Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {
     $trail->push('Home', route('home'));
     $trail->push('Categories', route('categories'));
 });
+
+Breadcrumbs::for('wishlist', function (BreadcrumbTrail $trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Wishlist', route('wishlist'));
+});
+
+Breadcrumbs::for('cart', function (BreadcrumbTrail $trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Cart', route('cart'));
+});

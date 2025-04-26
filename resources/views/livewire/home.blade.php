@@ -27,7 +27,7 @@
                   <div class="flex gap-5 flex-wrap">
                         @foreach ($this->categories as $category)
                         <x-category-card :category="$category" />
-                        @endforeach
+                  @endforeach
                   </div>
             </div>
       </div>
