@@ -22,9 +22,13 @@
     
         <div class="flex-1 min-h-screen">
             @livewire('navigation-menu')
+
+            <?php
+                $class=(request()->routeIs('register')||request()->routeIs('login'))?"":'mx-32'
+            ?>
     
             <!-- Page Content -->
-            <main class="mx-32">
+            <main class="{{$class}}">
                 {{ $slot }}
             </main>
         </div>

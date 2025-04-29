@@ -16,7 +16,7 @@
                         {{ $product->discount }}%
                   </div>
             @endif
-            <img src="{{ asset('storage/images/keyboard.png') }}" class="max-w-60" alt="">
+            <img src="{{ asset('images/keyboard.png') }}" class="max-w-60" alt="">
       </a>
       @if ($this->wishlist)
             <button wire:click="AddToCart"
