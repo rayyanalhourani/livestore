@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class ProductCard extends Component
 {
@@ -16,6 +17,23 @@ class ProductCard extends Component
             ->loadCount('reviews');
         $this->product = $product;
         $this->wishlist=$wishlist;
+    }
+
+    public function addToCart($productId)
+    {
+        $user = Auth::user();
+        $cart = $user->cart()->firstOrCreate([]);
+
+        foreach ($user->favoriteProducts as $product) {
+            $cart->items()->updateOrCreate(
+                ['product_id' => $productId],
+                ['quantity' => \DB::raw('quantity + 1')]
+            );
+
+            $user->favoriteProducts()->detach($product->id);
+        }
+
+        $this->dispatch('refreshWishlist');
     }
 
     public function render()

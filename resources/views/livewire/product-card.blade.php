@@ -19,7 +19,7 @@
             <img src="{{ asset('images/keyboard.png') }}" class="max-w-60" alt="">
       </a>
       @if ($this->wishlist)
-            <button wire:click="AddToCart"
+            <button wire:click="addToCart({{$product->id}})"
                   class="h-10 w-full bg-black text-white text-sm absolute bottom-24 flex justify-center items-center 
                   gap-2 hover:bg-gray-800 transition duration-300">
                   <span class="material-symbols-outlined">

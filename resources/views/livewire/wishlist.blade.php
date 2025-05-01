@@ -4,7 +4,7 @@
       </div>
       <div class="flex items-center justify-between">
             <span class="text-xl font-Satoshi">Wishlist ({{ $this->numberOfProducts }})</span>
-            <button class="w-56 h-14 border rounded border-black/50">
+            <button class="w-56 h-14 border rounded border-black/50 hover:bg-red-500 hover:text-white" wire:click='MoveAllToCart'>
                   Move All To Cart
             </button>
       </div>
