@@ -78,7 +78,7 @@
                                           <a wire:navigate href="{{route('login')}}" class="block px-4 py-2 text-sm text-gray-700"
                                                 role="menuitem" tabindex="-1">Login</a>
                                           <a wire:navigate href="{{route('register')}}" class="block px-4 py-2 text-sm text-gray-700"
-                                                role="menuitem" tabindex="-1">Sign up</a>
+                                                role="menuitem" tabindex="-1">Register</a>
                                     </div>
                               @endif
                         </div>
