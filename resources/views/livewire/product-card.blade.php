@@ -1,5 +1,6 @@
 <div class="w-[270px] h-[350px] relative group">
-      <button class="absolute top-1 right-1 rounded-full p-1 z-10 bg-white w-9 h-9 flex justify-center items-center">
+      <button class="absolute top-1 right-1 rounded-full p-1 z-10 bg-white w-9 h-9 flex justify-center items-center"
+            wire:click="deleteProductFromWishlist({{$product->id}})">
             @if ($this->wishlist)
                   <span class="material-symbols-outlined text-md">
                         delete

@@ -36,6 +36,12 @@ class ProductCard extends Component
         $this->dispatch('refreshWishlist');
     }
 
+    public function deleteProductFromWishlist($productId){
+        Auth::user()->favoriteProducts()->detach($productId);
+        $this->dispatch('refreshWishlist');
+        session()->flash('message', 'Products deleted from Wishlist!');
+    }
+
     public function render()
     {
         return view('livewire.product-card');

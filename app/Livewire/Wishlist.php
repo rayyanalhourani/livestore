@@ -11,13 +11,6 @@ class Wishlist extends Component
     public $products;
     public $numberOfProducts;
 
-    #[On('refreshWishlist')] 
-    public function refreshProducts()
-    {
-        $this->products = Auth::user()->fresh()->favoriteProducts;
-        $this->numberOfProducts = $this->products->count();
-    }
-
     public function mount()
     {
         $this->products = Auth::user()->favoriteProducts;
@@ -41,6 +34,13 @@ class Wishlist extends Component
         $this->refreshProducts();
 
         session()->flash('message', 'All products moved to cart!');
+    }
+
+    #[On('refreshWishlist')] 
+    public function refreshProducts()
+    {
+        $this->products = Auth::user()->fresh()->favoriteProducts;
+        $this->numberOfProducts = $this->products->count();
     }
 
     public function render()
