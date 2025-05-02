@@ -2,6 +2,7 @@
       <div class="my-6">
             {{ \Diglactic\Breadcrumbs\Breadcrumbs::render('cart') }}
       </div>
+
       <div>
             <table class="w-full table-auto border-separate border-spacing-y-4 text-left">
                   <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
@@ -14,14 +15,13 @@
                         </tr>
                   </thead>
                   <tbody>
-                        @foreach ($this->items as $item)
+                        @foreach ($items as $item)
                               @php
                                     $discount = $item->product->discount;
                                     $price = $item->product->price;
-                                    $subtotal = number_format(
-                                        ($price - ($price * $discount) / 100) * $item->quantity,
-                                        2,
-                                    );
+                                    $unitPrice = $price - ($price * $discount) / 100;
+                                    $qty = $quantities[$item->id] ?? $item->quantity;
+                                    $subtotal = number_format($unitPrice * $qty, 2);
                               @endphp
                               <tr class="bg-white shadow rounded-lg h-24 hover:bg-gray-50 transition-all duration-150">
                                     <td class="px-6 py-4">
@@ -36,7 +36,8 @@
                                           <x-price :discount="$discount" :price="$price" />
                                     </td>
                                     <td class="px-6 py-4">
-                                          {{ $item->quantity }}
+                                          <input type="number" min="1" class="w-16 text-center border rounded"
+                                                wire:model.defer="quantities.{{ $item->id }}">
                                     </td>
                                     <td class="px-6 py-4">
                                           ${{ $subtotal }}
@@ -54,14 +55,16 @@
                         @endforeach
                   </tbody>
             </table>
-            <div class="flex justify-between">
+
+            <div class="flex justify-between mt-6">
                   <button class="w-56 h-14 border rounded border-black/50">
                         Return to Shop
                   </button>
-                  <button class="w-56 h-14 border rounded border-black/50">
+                  <button class="w-56 h-14 border rounded border-black/50" wire:click="updateCart">
                         Update Cart
                   </button>
             </div>
+
             <div class="my-20 flex items-start justify-between">
                   <form class="flex gap-4 h-14">
                         <input type="text" placeholder="Coupon Code" class="w-72" />
@@ -73,7 +76,7 @@
                         <span class="text-xl font-medium">Cart total</span>
                         <div class="font-Poppins text-lg border-b-2 w-80 py-4 flex items-center justify-between">
                               <span>Subtotal:</span>
-                              <span>$1470</span>
+                              <span>${{ number_format($this->getSubtotal(), 2) }}</span>
                         </div>
                         <div class="font-Poppins text-lg border-b-2 w-80 py-4 flex items-center justify-between">
                               <span>Shipping:</span>
@@ -81,7 +84,7 @@
                         </div>
                         <div class="font-Poppins text-lg w-80 py-4 flex items-center justify-between">
                               <span>Total:</span>
-                              <span>$1470</span>
+                              <span>${{ number_format($this->getSubtotal(), 2) }}</span>
                         </div>
                         <div class="flex items-center justify-center">
                               <button class="h-14 w-64 text-white font-Poppins bg-red-500 rounded font-medium">
