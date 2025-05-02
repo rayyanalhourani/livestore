@@ -31,3 +31,8 @@ Breadcrumbs::for('cart', function (BreadcrumbTrail $trail) {
     $trail->push('Home', route('home'));
     $trail->push('Cart', route('cart'));
 });
+
+Breadcrumbs::for('error', function (BreadcrumbTrail $trail, $error) {
+    $trail->push('Home', route('home'));
+    $trail->push($error." Error");
+});
