@@ -3,14 +3,14 @@
             {{ \Diglactic\Breadcrumbs\Breadcrumbs::render('cart') }}
       </div>
       <div>
-            <table class="w-full border-separate border-spacing-y-8 text-left">
-                  <thead class="h-16 shadow">
+            <table class="w-full table-auto border-separate border-spacing-y-4 text-left">
+                  <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
                         <tr>
-                              <th>Product</th>
-                              <th>Price</th>
-                              <th>Quantity</th>
-                              <th>Subtotal</th>
-                              <th>Delete</th>
+                              <th class="px-6 py-3">Product</th>
+                              <th class="px-6 py-3">Price</th>
+                              <th class="px-6 py-3">Quantity</th>
+                              <th class="px-6 py-3">Subtotal</th>
+                              <th class="px-6 py-3">Delete</th>
                         </tr>
                   </thead>
                   <tbody>
@@ -18,31 +18,37 @@
                               @php
                                     $discount = $item->product->discount;
                                     $price = $item->product->price;
+                                    $subtotal = number_format(
+                                        ($price - ($price * $discount) / 100) * $item->quantity,
+                                        2,
+                                    );
                               @endphp
-                              <tr class="h-24 shadow">
-                                    <td>
-                                          <div class="flex items-center gap-5 ml-10">
-                                                <img src="{{ asset('storage/images/keyboard.png') }}" class="w-14"
-                                                      alt="">
-                                                <span>{{ $item->product->name }}</span>
+                              <tr class="bg-white shadow rounded-lg h-24 hover:bg-gray-50 transition-all duration-150">
+                                    <td class="px-6 py-4">
+                                          <div class="flex items-center gap-4">
+                                                <img src="{{ asset('storage/images/keyboard.png') }}"
+                                                      class="w-14 h-14 object-cover rounded" alt="">
+                                                <span
+                                                      class="font-medium text-gray-800">{{ $item->product->name }}</span>
                                           </div>
                                     </td>
-                                    <td>
+                                    <td class="px-6 py-4">
                                           <x-price :discount="$discount" :price="$price" />
                                     </td>
-                                    <td>
+                                    <td class="px-6 py-4">
                                           {{ $item->quantity }}
                                     </td>
-                                    <td>
-                                          {{ number_format($price - ($price * $discount) / 100, 2) * $item->quantity }}
+                                    <td class="px-6 py-4">
+                                          ${{ $subtotal }}
                                     </td>
-                                    <td>
-                                          <button>
-                                                <span class="material-symbols-outlined text-md">
+                                    <td class="px-6 py-4">
+                                          <button
+                                                class="flex items-center justify-center p-2 rounded-full hover:bg-red-100 transition"
+                                                wire:click="deleteProductFromCart({{ $item->product->id }})">
+                                                <span class="material-symbols-outlined text-red-500">
                                                       delete
                                                 </span>
                                           </button>
-
                                     </td>
                               </tr>
                         @endforeach

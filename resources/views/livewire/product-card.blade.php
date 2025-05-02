@@ -2,13 +2,12 @@
       <button class="absolute top-1 right-1 rounded-full p-1 z-10 bg-white w-9 h-9 flex justify-center items-center"
             wire:click="deleteProductFromWishlist({{$product->id}})">
             @if ($this->wishlist)
-                  <span class="material-symbols-outlined text-md">
+                  <span class="material-symbols-outlined text-md text-red-500">
                         delete
                   </span>
             @else
                   <livewire:favorite-button :key="$product->id" :productId="$product->id">
             @endif
-
       </button>
       <a class="h-[250px] w-full bg-gray-200 relative flex items-center justify-center block"
             href="{{ route('product.show', $product->id) }}" wire:navigate>
