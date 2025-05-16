@@ -14,8 +14,10 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
+            $table->morphs('imageable');
             $table->string("path");
+            $table->boolean("is_primary")->default(false);
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
     }

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -17,10 +19,6 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function images(): HasMany
-    {
-        return $this->hasMany(Image::class);
-    }
 
     public function reviews(): HasMany
     {
@@ -30,5 +28,10 @@ class Product extends Model
     public function favoredByUsers()
     {
         return $this->belongsToMany(User::class, 'favorites');
+    }
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
