@@ -35,8 +35,9 @@ class DatabaseSeeder extends Seeder
             Review::factory(rand(10,20))->create([
                 "product_id" => $product->id,
             ]);
-            Image::factory(3)->create([
-                "product_id" => $product->id,
+            Image::factory()->count(3)->create([
+                'imageable_id' => $product->id,
+                'imageable_type' => Product::class,
             ]);
             $randCatIds = collect($categories)->pluck('id')->random(3)->toArray();
             $product->categories()->attach($randCatIds);
