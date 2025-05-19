@@ -8,9 +8,14 @@ use App\Models\Image;
 use App\Models\Product;
 use App\Models\Favorite;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Select;
 use Laravel\Jetstream\HasProfilePhoto;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Notifications\Notifiable;
+use Filament\Forms\Components\FileUpload;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,7 +66,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function cart(){
+    public function cart()
+    {
         return $this->hasOne(Cart::class);
     }
 
@@ -73,5 +79,42 @@ class User extends Authenticatable
     public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public static function getForm()
+    {
+        return [
+            TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('email')
+                ->email()
+                ->required()
+                ->maxLength(255),
+            TextInput::make('password')
+                ->password()
+                ->maxLength(255)
+                ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                ->dehydrated(fn($state) => filled($state))
+                ->required(fn(string $context): bool => $context === 'create'),
+            TextInput::make('password_confirmation')
+                ->password()
+                ->label('Confirm Password')
+                ->same('password')
+                ->required(fn(string $context): bool => $context === 'create')
+                ->dehydrated(false),
+            Select::make('role')
+                ->options([
+                    'admin' => 'Admin',
+                    'customer' => 'Customer',
+                ])
+                ->default("admin"),
+            FileUpload::make('avatar')
+                ->avatar()
+                ->imageEditor()
+                ->directory('user-images')
+                ->dehydrated(false)
+                ->columnSpanFull()
+        ];
     }
 }
