@@ -34,14 +34,4 @@ class Product extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
-
-    public function primaryImage()
-    {
-        return $this->morphOne(Image::class, 'imageable')->where('is_primary', true);
-    }
-
-    public function additionalImages()
-    {
-        return $this->morphMany(Image::class, 'imageable')->where('is_primary', false);
-    }
 }

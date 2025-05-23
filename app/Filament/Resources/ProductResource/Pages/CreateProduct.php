@@ -10,36 +10,23 @@ class CreateProduct extends CreateRecord
 {
     protected static string $resource = ProductResource::class;
 
-    protected string $primaryImagePath;
-    protected array $additionalImagePaths = [];
+    protected function afterCreate(): void
+    {
+        $primaryImage=reset($this->data['primary_image']);
 
-    protected function mutateFormDataBeforeCreate(array $data): array
-{
-    $this->primaryImagePath = $data['primary_image'];
-    $this->additionalImagePaths = array_column($data['additional_images'], 'image');
-    unset($data['primary_image'], $data['additional_images']);
+        $images[]=[
+            "path"=>$primaryImage,
+            "is_primary" =>true,
+        ];
 
-    return $data;
-}
-
-protected function afterCreate(): void
-{
-    $product = $this->record;
-
-    // Save primary image
-    $product->images()->create([
-        'path' => $this->primaryImagePath,
-        'is_primary' => true,
-        'sort_order' => 0,
-    ]);
-
-    // Save additional images
-    foreach ($this->additionalImagePaths as $index => $imagePath) {
-        $product->images()->create([
-            'path' => $imagePath,
-            'is_primary' => false,
-            'sort_order' => $index + 1,
-        ]);
+        $sortOrder=1;
+        foreach ($this->data['additional_images'] as $imageSet) {
+            $imagePath = reset($imageSet['image']);
+            $images[] = [
+                'path' => $imagePath,
+            ];
+            $sortOrder++;
+        }
+        $this->record->images()->createMany($images);
     }
-}
 }

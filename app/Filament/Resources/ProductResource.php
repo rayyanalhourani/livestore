@@ -49,24 +49,22 @@ class ProductResource extends Resource
                             ->columns(5)
                             ->searchable()
                     ]),
-
                 Forms\Components\Section::make('Images')
                     ->schema([
                         Forms\Components\FileUpload::make('primary_image')
                             ->label('Primary Image')
                             ->image()
                             ->directory('products')
-                            ->preserveFilenames()
-                            ->required(),
+                            ->dehydrated(false),
                         Forms\Components\Repeater::make('additional_images')
                             ->label('Additional Images')
                             ->addActionLabel("Add Images")
+                            ->dehydrated(false)
                             ->schema([
                                 Forms\Components\FileUpload::make('image')
                                     ->label('Image')
                                     ->image()
                                     ->directory('products')
-                                    ->preserveFilenames()
                                     ->required(),
                             ])
                             ->maxItems(4)
@@ -82,8 +80,6 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('price')
                     ->money()
                     ->sortable(),
@@ -93,14 +89,9 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('discount')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\ImageColumn::make('images.path')
+                    ->label('Primary Image')
+                    ->getStateUsing(fn($record) => $record?->images->firstWhere('is_primary', true)?->path),
             ])
             ->filters([
                 //
