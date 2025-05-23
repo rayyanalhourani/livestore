@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
 use App\Models\Cart;
 use App\Models\Image;
 use App\Models\Product;
@@ -14,13 +15,14 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Notifications\Notifiable;
 use Filament\Forms\Components\FileUpload;
+use Filament\Models\Contracts\FilamentUser;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
 
@@ -116,5 +118,10 @@ class User extends Authenticatable
                 ->dehydrated(false)
                 ->columnSpanFull()
         ];
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role=="admin";
     }
 }

@@ -28,22 +28,51 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('description')
-                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()
                     ->prefix('$'),
+                Forms\Components\Textarea::make('description')
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('stock')
-                    ->required()
                     ->numeric()
-                    ->default(0),
+                    ->default(1),
                 Forms\Components\TextInput::make('discount')
-                    ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\Section::make("categories")
+                    ->schema([
+                        Forms\Components\CheckboxList::make('categories')
+                            ->hiddenLabel()
+                            ->relationship(name: 'categories', titleAttribute: 'name')
+                            ->columnSpanFull()
+                            ->columns(5)
+                            ->searchable()
+                    ]),
+
+                Forms\Components\Section::make('Images')
+                    ->schema([
+                        Forms\Components\FileUpload::make('primary_image')
+                            ->label('Primary Image')
+                            ->image()
+                            ->directory('products')
+                            ->preserveFilenames()
+                            ->required(),
+                        Forms\Components\Repeater::make('additional_images')
+                            ->label('Additional Images')
+                            ->addActionLabel("Add Images")
+                            ->schema([
+                                Forms\Components\FileUpload::make('image')
+                                    ->label('Image')
+                                    ->image()
+                                    ->directory('products')
+                                    ->preserveFilenames()
+                                    ->required(),
+                            ])
+                            ->maxItems(4)
+                            ->defaultItems(0)
+                    ])
+                    ->columnSpanFull()
             ]);
     }
 
