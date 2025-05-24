@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
@@ -55,22 +52,28 @@ class ProductResource extends Resource
                             ->label('Primary Image')
                             ->image()
                             ->directory('products')
-                            ->dehydrated(false),
-                        Forms\Components\Repeater::make('additional_images')
-                            ->label('Additional Images')
-                            ->addActionLabel("Add Images")
                             ->dehydrated(false)
-                            ->schema([
-                                Forms\Components\FileUpload::make('image')
-                                    ->label('Image')
-                                    ->image()
-                                    ->directory('products')
-                                    ->required(),
-                            ])
-                            ->maxItems(4)
-                            ->defaultItems(0)
+                            ->maxFiles(1)
+                            ->formatStateUsing(
+                                fn($record) => $record?->images?->where('is_primary', true)?->pluck("path")->toArray()
+                            ),
+                        Forms\Components\FileUpload::make('additional_images')
+                            ->label('Additional Images')
+                            ->image()
+                            ->imageEditor()
+                            ->multiple()
+                            ->dehydrated(false)
+                            ->reorderable()
+                            ->maxFiles(4)
+                            ->directory('products')
+                            ->formatStateUsing(
+                                fn($record) => $record?->images
+                                    ?->where('is_primary', false)
+                                    ->pluck('path')
+                                    ->toArray()
+                            )
                     ])
-                    ->columnSpanFull()
+                    ->columnSpanFull(),
             ]);
     }
 

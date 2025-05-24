@@ -3,30 +3,31 @@
 namespace App\Filament\Resources\ProductResource\Pages;
 
 use App\Filament\Resources\ProductResource;
+use App\Models\Image;
 use Filament\Resources\Pages\EditRecord;
 
 class EditProduct extends EditRecord
 {
     protected static string $resource = ProductResource::class;
 
-    protected function afterSave(): void
+    protected function beforeSave(): void
     {
-        $product = $this->record;
+        dd($this->data);
+        $this->record->images()->delete();
 
-        $product->images()->delete();
+        $images[] = [
+            "path" => reset($this->data['primary_image']),
+            "is_primary" => true,
+        ];
 
-        $product->images()->create([
-            'path' => $this->primaryImagePath,
-            'is_primary' => true,
-            'sort_order' => 0,
-        ]);
-
-        foreach ($this->additionalImagePaths as $index => $imagePath) {
-            $product->images()->create([
+        $sortOrder = 1;
+        foreach ($this->data['additional_images'] as $imagePath) {
+            $images[] = [
                 'path' => $imagePath,
-                'is_primary' => false,
-                'sort_order' => $index + 1,
-            ]);
+                "sort_order" => $sortOrder
+            ];
+            $sortOrder++;
         }
+        $this->record->images()->createMany($images);
     }
 }

@@ -24,6 +24,7 @@ class CreateProduct extends CreateRecord
             $imagePath = reset($imageSet['image']);
             $images[] = [
                 'path' => $imagePath,
+                "sort_order" => $sortOrder
             ];
             $sortOrder++;
         }
