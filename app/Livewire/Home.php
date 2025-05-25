@@ -22,6 +22,16 @@ class Home extends Component
     }
 
     #[Computed]
+    public function bestSelling(){
+        return Product::inRandomOrder()->limit(10)->withAvg("reviews",column: "rating")->get();
+    }
+
+    #[Computed]
+    public function ourProducts(){
+        return Product::inRandomOrder()->limit(10)->withAvg("reviews",column: "rating")->get();
+    }
+
+    #[Computed]
     public function discountProducts(){
         return Product::where( "discount",">",0)
         ->limit(10)

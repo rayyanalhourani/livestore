@@ -1,6 +1,6 @@
-<div class="w-[270px] h-[350px] relative group">
+<div class="min-w-[270px] h-[350px] relative group">
       <button class="absolute top-1 right-1 rounded-full p-1 z-10 bg-white w-9 h-9 flex justify-center items-center"
-            wire:click="deleteProductFromWishlist({{$product->id}})">
+            wire:click="deleteProductFromWishlist({{ $product->id }})">
             @if ($this->wishlist)
                   <span class="material-symbols-outlined text-md text-red-500">
                         delete
@@ -16,10 +16,13 @@
                         {{ $product->discount }}%
                   </div>
             @endif
-            <img src="{{ asset('images/keyboard.png') }}" class="max-w-60" alt="">
+            @if (isset($product->images))
+                  <img src="{{ asset($product->images->where('is_primary',true)) }}" class="max-w-60" alt="">
+            @else
+            @endif
       </a>
       @if ($this->wishlist)
-            <button wire:click="addToCart({{$product->id}})"
+            <button wire:click="addToCart({{ $product->id }})"
                   class="h-10 w-full bg-black text-white text-sm absolute bottom-24 flex justify-center items-center 
                   gap-2 hover:bg-gray-800 transition duration-300">
                   <span class="material-symbols-outlined">
