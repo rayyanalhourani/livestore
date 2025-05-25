@@ -51,7 +51,7 @@ class ProductResource extends Resource
                         Forms\Components\FileUpload::make('primary_image')
                             ->label('Primary Image')
                             ->image()
-                            ->directory('products')
+                            ->directory('app/public/images/products')
                             ->dehydrated(false)
                             ->maxFiles(1)
                             ->formatStateUsing(
@@ -65,7 +65,7 @@ class ProductResource extends Resource
                             ->dehydrated(false)
                             ->reorderable()
                             ->maxFiles(4)
-                            ->directory('products')
+                            ->directory('app/public/images/products')
                             ->formatStateUsing(
                                 fn($record) => $record?->images
                                     ?->where('is_primary', false)

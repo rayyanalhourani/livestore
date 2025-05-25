@@ -16,10 +16,13 @@
                         {{ $product->discount }}%
                   </div>
             @endif
-            @if (isset($product->images))
-                  <img src="{{ asset($product->images->where('is_primary',true)) }}" class="max-w-60" alt="">
+            @if ($product->images->where('is_primary', true)->first()?->path)
+            <img src="{{ asset('storage/' . $product->images->where('is_primary', true)->first()?->path) }}" class="max-w-60" alt="Product Image">
+
             @else
+                  <img src="{{ asset('images/defualt_product.png') }}" class="max-w-60" alt="">
             @endif
+
       </a>
       @if ($this->wishlist)
             <button wire:click="addToCart({{ $product->id }})"

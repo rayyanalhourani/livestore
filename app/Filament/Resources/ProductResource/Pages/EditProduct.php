@@ -12,7 +12,6 @@ class EditProduct extends EditRecord
 
     protected function beforeSave(): void
     {
-        dd($this->data);
         $this->record->images()->delete();
 
         $images[] = [

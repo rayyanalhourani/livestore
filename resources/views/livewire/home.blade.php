@@ -70,7 +70,7 @@
                               <livewire:product-card :key="$product->id" :product="$product" />
                         @endforeach
                   </div>
-                  <div class="flex justify-center mt-6">
+                  <div class="flex justify-center mt-6 mb-10">
                         <x-button class="font-medium w-64">
                               <a href="/products">View All Products</a>
                         </x-button>
