@@ -7,7 +7,7 @@
       @else
             <x-heroicon-m-tag class="h-12 w-12 text-gray-300" />
       @endif
-      <span class="font-Satoshi">
+      <span class="font-Satoshi text-center truncate max-w-[140px] w-full px-2">
             {{ $category->name }}
-      </span>
+        </span>
 </a>
