@@ -13,7 +13,7 @@ class Home extends Component
 
     #[Computed]
     public function categories(){
-        return Category::limit(10)->get();
+        return Category::limit(15)->get();
     }
 
     #[Computed]
