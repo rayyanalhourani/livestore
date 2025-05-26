@@ -11,7 +11,7 @@ class FavoriteButton extends Component
     public $productId;
     public $size;
 
-    public function mount($productId,$size=28)
+    public function mount($productId,$size=7)
     {
         $this->productId=$productId;
         $this->isFavorite = Auth::check() && Auth::user()->favoriteProducts()->where('product_id', $productId)->first();

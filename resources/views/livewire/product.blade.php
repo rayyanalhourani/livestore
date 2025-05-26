@@ -49,7 +49,7 @@
                         </button>
 
                         <div class="h-11 w-11 flex items-center justify-center rounded-lg">
-                              <livewire:favorite-button :key="$product->id" :productId="$product->id" size="40">
+                              <livewire:favorite-button :key="$product->id" :productId="$product->id" size="10">
                         </div>
                   </div>
             </div>
