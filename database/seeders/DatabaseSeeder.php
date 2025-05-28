@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        User::factory(10)->create(["password" => bcrypt("123456"),]);
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             "role"=>"admin"
         ]);
 
-        Product::factory(10)->create();
-        Category::factory(10)->create();
+        Product::factory(30)->create();
+        Category::factory(20)->create();
 
         $products = Product::all();
         $categories = Category::all();
@@ -37,21 +37,8 @@ class DatabaseSeeder extends Seeder
             Review::factory(rand(10,20))->create([
                 "product_id" => $product->id,
             ]);
-            Image::factory()->count(3)->create([
-                'imageable_id' => $product->id,
-                'imageable_type' => Product::class,
-            ]);
             $randCatIds = collect($categories)->pluck('id')->random(3)->toArray();
             $product->categories()->attach($randCatIds);
-        }
-
-        $users = User::all();
-        foreach ($users as $user) {
-            $cart = Cart::factory()->create([
-                'user_id' => $user->id,
-            ]);
-
-            CartItem::factory(10)->create(["cart_id"=> $cart->id]);
         }
     }
 }

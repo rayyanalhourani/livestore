@@ -4,15 +4,20 @@
       </div>
 
       <div class="flex justify-center">
-            <div class="flex flex-col gap-4 mr-7">
-                  @for ($i = 0; $i < 4; $i++)
-                        <div class="h-[138px] w-[170px] bg-gray-100 flex items-center justify-center">
-                              <img src="{{ asset('storage/images/keyboard.png') }}" class="px-4" alt="">
-                        </div>
-                  @endfor
-            </div>
-            <div class="h-[600px] w-[500px] bg-gray-100 flex items-center justify-center mr-16">
-                  <img src="{{ asset('storage/images/keyboard.png') }}" class="px-6" alt="">
+            <div x-data="{ selectedImage: '{{ asset('storage/' . $product->images->where('is_primary', true)->first()?->path) }}' }" class="flex">
+                  <div class="flex flex-col gap-4 mr-7">
+                        @foreach ($this->product->images as $image)
+                              <div class="h-28 w-44 bg-gray-100 flex items-center justify-center cursor-pointer px-4"
+                                    @click="selectedImage = '{{ asset('storage/' . $image->path) }}'">
+                                    <img src="{{ asset('storage/' . $image->path) }}"
+                                          class="h-24" alt="Product Thumbnail">
+                              </div>
+                        @endforeach
+                  </div>
+                  <div class="h-[625px] w-[500px] bg-gray-100 flex items-center justify-center mr-16">
+                        <img :src="selectedImage" class="w-full"
+                              alt="Selected Product Image">
+                  </div>
             </div>
             <div>
                   <h1 class="text-2xl font-semibold">{{ $product->name }}</h1>
@@ -67,7 +72,8 @@
                                     <span class="text-xl font-bold">{{ $review->user->name }}</span>
                                     <p class="font-Satoshi text-black/60">"{{ $review->comment }}"</p>
                               </div>
-                              <span class="font-Satoshi text-black/60 font-bold">Posted on {{ date('F j, Y', strtotime($review->created_at)) }}</span>
+                              <span class="font-Satoshi text-black/60 font-bold">Posted on
+                                    {{ date('F j, Y', strtotime($review->created_at)) }}</span>
                         </div>
                   @endforeach
             </div>
