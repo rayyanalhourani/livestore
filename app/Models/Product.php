@@ -22,7 +22,7 @@ class Product extends Model
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class)->with("user");
     }
 
     public function favoredByUsers()

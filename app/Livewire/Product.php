@@ -2,11 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Cart;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product as ProductModel;
 use Livewire\Attributes\Computed;
-use Livewire;
 
 class Product extends Component
 {
@@ -18,24 +18,17 @@ class Product extends Component
     public function mount($product)
     {
         $this->product = ProductModel::withAvg('reviews', 'rating')
-            ->withCount('reviews')
-            ->with(["reviews.user"])
+            ->with(["reviews"])
             ->where('id', $product)
             ->firstOrFail();
-        $this->numberOfReviews=$this->product->reviews_count;
-        $this->rating=$this->product->reviews_avg_rating;
+
+        $this->numberOfReviews = count($this->product->reviews);
+        $this->rating = $this->product->reviews_avg_rating;
     }
 
     public function addToCart()
     {
-        $user = Auth::user();
-        if (!$user) {
-            $this->dispatchBrowserEvent('cart-error', ['message' => 'Please log in to add to cart']);
-            return;
-        }
-
-        $cart = $user->cart()->firstOrCreate([]);
-
+        $cart = Cart::getUserCart();
         $cartItem = $cart->items()->where('product_id', $this->product->id)->first();
 
         if ($cartItem) {
@@ -48,18 +41,17 @@ class Product extends Component
                 'note' => null,
             ]);
         }
-        $this->quantity=1;
-
-        return;
+        $this->quantity = 1;
     }
 
     #[Computed]
-    public function relatedProducts(){
+    public function relatedProducts()
+    {
         return ProductModel::inRandomOrder()
-        ->limit( 6)
-        ->withAvg("reviews","rating")
-        ->withCount("reviews")
-        ->get();
+            ->limit(6)
+            ->withAvg("reviews", "rating")
+            ->withCount("reviews")
+            ->get();
     }
 
     public function render()

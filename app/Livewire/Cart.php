@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Auth;
+use App\Models\Cart as CartModel;
 use Livewire\Component;
 
 class Cart extends Component
@@ -12,7 +13,7 @@ class Cart extends Component
 
     public function mount()
     {
-        $this->items = Auth::user()->cart->items()->with('product')->get();
+        $this->items = CartModel::getUserCart()->items()->with('product')->get();
         foreach ($this->items as $item) {
             $this->quantities[$item->id] = $item->quantity;
         }
@@ -21,7 +22,7 @@ class Cart extends Component
     public function updateCart()
     {
         foreach ($this->quantities as $itemId => $quantity) {
-            Auth::user()->cart->items()->where('id', $itemId)->update([
+            CartModel::getUserCart()->items()->where('id', $itemId)->update([
                 'quantity' => max(1, (int) $quantity),
             ]);
         }
@@ -32,7 +33,7 @@ class Cart extends Component
 
     public function deleteProductFromCart($productId)
     {
-        Auth::user()->cart->items()->where('product_id', $productId)->delete();
+        CartModel::getUserCart()->items()->where('product_id', $productId)->delete();
         $this->mount();
     }
 
