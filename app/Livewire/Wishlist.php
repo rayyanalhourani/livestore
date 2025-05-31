@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Favorite;
 use Auth;
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -13,22 +14,19 @@ class Wishlist extends Component
 
     public function mount()
     {
-        $this->products = Auth::user()->favoriteProducts;
+        $this->products = Favorite::getUserFavorites();
         $this->numberOfProducts = $this->products->count();
     }
 
     public function MoveAllToCart()
     {
-        $user = Auth::user();
-        $cart = $user->cart()->firstOrCreate([]);
+        $cart = Cart::getUserCart();
 
-        foreach ($user->favoriteProducts as $product) {
+        foreach ($this->products as $product) {
             $cart->items()->updateOrCreate(
                 ['product_id' => $product->id],
                 ['quantity' => \DB::raw('quantity + 1')]
             );
-
-            $user->favoriteProducts()->detach($product->id);
         }
 
         $this->refreshProducts();

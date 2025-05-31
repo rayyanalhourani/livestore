@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Favorite extends Model
@@ -16,5 +17,14 @@ class Favorite extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+    
+    public static function getUserFavorites(){
+        if (Auth::check()){
+            return Auth::user()->favoriteProducts();
+        } else {
+            $sessionId = session()->getId();
+            return Favorite::where("session_id", "=", $sessionId)->get();
+        }
     }
 }
