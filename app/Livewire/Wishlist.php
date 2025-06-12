@@ -37,8 +37,8 @@ class Wishlist extends Component
     #[On('refreshWishlist')] 
     public function refreshProducts()
     {
-        $this->favorites = Auth::user()->fresh()->favoriteProducts;
-        $this->numberOfProducts = $this->products->count();
+        $this->favorites = Favorite::getUserFavorites();
+        $this->numberOfProducts = $this->favorites->count();
     }
 
     public function render()
