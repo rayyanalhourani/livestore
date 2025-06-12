@@ -9,13 +9,13 @@ use Livewire\Attributes\On;
 
 class Wishlist extends Component
 {
-    public $products;
+    public $favorites;
     public $numberOfProducts;
 
     public function mount()
     {
-        $this->products = Favorite::getUserFavorites();
-        $this->numberOfProducts = $this->products->count();
+        $this->favorites = Favorite::getUserFavorites();
+        $this->numberOfProducts = $this->favorites->count();
     }
 
     public function MoveAllToCart()
@@ -37,7 +37,7 @@ class Wishlist extends Component
     #[On('refreshWishlist')] 
     public function refreshProducts()
     {
-        $this->products = Auth::user()->fresh()->favoriteProducts;
+        $this->favorites = Auth::user()->fresh()->favoriteProducts;
         $this->numberOfProducts = $this->products->count();
     }
 

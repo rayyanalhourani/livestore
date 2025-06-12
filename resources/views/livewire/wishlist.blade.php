@@ -8,9 +8,9 @@
                   Move All To Cart
             </button>
       </div>
-      <div class="flex gap-5 flex-wrap mt-20">
-            @foreach ($this->products as $product)
-                  <livewire:product-card :key="$product->id" :product="$product" :wishlist="true">
-            @endforeach
-      </div>
+            <div class="flex gap-5 flex-wrap mt-20">
+                  @foreach ($this->favorites as $favorite)
+                        <livewire:product-card :key="$favorite->product->id" :product="$favorite->product" :wishlist="true">
+                  @endforeach
+            </div>
 </div>

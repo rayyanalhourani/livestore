@@ -24,7 +24,7 @@ class Favorite extends Model
             return Auth::user()->favoriteProducts();
         } else {
             $sessionId = session()->getId();
-            return Favorite::where("session_id", "=", $sessionId)->get();
+            return Favorite::where("session_id", "=", $sessionId)->with("product")->get();
         }
     }
 }
